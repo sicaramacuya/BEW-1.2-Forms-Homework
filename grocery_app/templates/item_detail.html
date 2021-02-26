@@ -7,10 +7,25 @@
 
 <p><strong>Price:</strong> {{ item.price }}</p>
 
+<!-- TODO: Show this only if the user is logged in and the book is not in their 
+    favorites-->
+    {% if current_user.is_authenticated and not is_item_in_shopping_list %}
+    <form action="/add_to_shopping_list/{{ item.id }}" method="POST">
+        <input type="submit" value="Add to Shopping List">
+    </form>
+{% else %}
+<!-- TODO: Show this only if the user is logged in and the book is not in their 
+    favorites-->
+    <form action="/remove_from_shopping_list/{{ item.id }}" method="POST">
+        <input type="submit" value="Remove from Shopping List">
+    </form>
+{% endif %}
+
 <p><strong>Category:</strong> {{ item.category }}</p>
 
 <p><strong>Store:</strong> {{ item.store.title }}</p>
 
+<p><strong>Created by:</strong> {{ item_created_by.username }}</p>
 
 <h2>Edit Item</h2>
 
